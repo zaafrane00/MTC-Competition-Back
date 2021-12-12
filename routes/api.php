@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +29,14 @@ Route::post('/user/edit/{id}', [UserController::class, 'update']);
 
 Route::post('/user/register', [AuthController::class, 'register']);
 Route::post('/user/login', [AuthController::class, 'login']);
+
+Route::get('/posts', [PostController::class, 'index']);
+Route::post('/post/add', [PostController::class, 'store']);
+Route::post('/post/edit/{id}', [PostController::class, 'update']);
+
+Route::get('/comments', [CommentController::class, 'index']);
+Route::post('/comment/add', [CommentController::class, 'store']);
+Route::post('/comment/edit/{id}', [CommentController::class, 'update']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
