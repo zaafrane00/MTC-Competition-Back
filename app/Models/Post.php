@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Comment;
 
 class Post extends Model
 {
@@ -27,6 +28,6 @@ class Post extends Model
 
     public function comments()
     {
-        return $this->hasMany('App\Models\Comment', 'post_id');
+        return $this->hasMany(Comment::class);
     }
 }
