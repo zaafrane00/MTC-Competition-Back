@@ -11,11 +11,22 @@ class Post extends Model
 
     protected $table = 'posts';
     protected $fillable = [
-        'nom'
+        'title', 'body', 'image', 'image_thumbnail', 'user_id', 'status', 'type',
+        'address', 'country_id'
     ];
 
     public function owner()
     {
         return $this->belongsTo('App\Models\User', 'user_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Country', 'country_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment', 'post_id');
     }
 }
