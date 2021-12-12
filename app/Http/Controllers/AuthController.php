@@ -10,6 +10,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use DB;
 
 class AuthController extends Controller
 {
@@ -33,7 +34,7 @@ class AuthController extends Controller
             ->where('email', 'like', $request->email)
             ->first();
         // return response()->json($User[0]->last_login_at = Carbon::now()->toDateTimeString());
-        if ($User->admin == '1' and $User->status == '1') {
+        if ($User->status == '1') {
             if (!$token = auth()->attempt($validator->validated())) {
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
@@ -81,7 +82,6 @@ class AuthController extends Controller
             'token' => $this->respondWithToken($token),
             'access_token' => $token,
             'token_type' => 'bearer',
-            //'expires_in' => auth()->factory()->getTTL() * 60
             'expires_in' => auth('api')->factory()->getTTL() * 60
         ], 201);
     }
